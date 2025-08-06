@@ -1,18 +1,31 @@
-## Getting Started
+# Projeto Conta Terminal
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Este projeto simples em Java simula a criação de uma conta bancária via terminal (CLI). Ele coleta informações básicas do usuário, como nome, agência, número da conta e saldo inicial, e emite uma mensagem de boas-vindas personalizada com os dados informados.
 
-## Folder Structure
+## Como funciona?
 
-The workspace contains two folders by default, where:
+Ao executar o programa, o sistema solicita interativamente ao usuário:
+1. Nome completo
+2. Número da agência
+3. Número da conta
+4. Valor do depósito inicial
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+No final, o programa exibe uma mensagem formatada com todos os dados.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+##Detalhe importante: `nextLine()` vs `next()`
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Durante a implementação, surgiu um comportamento inesperado: quando o usuário digitava um **nome com sobrenome** (ex: `João Silva`), o segundo nome (`Silva`) era capturado indevidamente pelo campo seguinte (`agência`), antes mesmo do sistema solicitar a entrada.
 
-## Dependency Management
+### Por que isso acontece?
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+O método `scanner.next()` lê apenas **até o primeiro espaço**. Isso significa que:
+- `João` ia para `nomeCliente`
+- `Silva` ficava no buffer e era automaticamente usado por `agencia = scanner.next()`
+
+### A solução:
+
+Foi adotado o método `scanner.nextLine()` para capturar o **nome completo**, pois ele lê a entrada **até o final da linha**, incluindo espaços. Com isso, o nome é capturado corretamente e o programa segue com os prompts esperados:
+
+```java
+System.out.println("Por favor, digite o seu nome:");
+nomeCliente = scanner.nextLine(); // Lê nome completo com espaços
