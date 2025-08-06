@@ -12,7 +12,7 @@ Ao executar o programa, o sistema solicita interativamente ao usuário:
 
 No final, o programa exibe uma mensagem formatada com todos os dados.
 
-##Detalhe importante: `nextLine()` vs `next()`
+### Detalhe importante: `nextLine()` vs `next()`
 
 Durante a implementação, surgiu um comportamento inesperado: quando o usuário digitava um **nome com sobrenome** (ex: `João Silva`), o segundo nome (`Silva`) era capturado indevidamente pelo campo seguinte (`agência`), antes mesmo do sistema solicitar a entrada.
 
